@@ -1,0 +1,65 @@
+<script>
+	function update() {
+        document.getElementById("text").value = clikcount;
+    	document.title = clikcount + " clik-clik";
+    	document.getElementById("ammountAutoClick").innerHTML = "you Own " + autoClick + " autoClickers";
+        document.getElementById("costAutoClick").innerHTML = ((autoClick=1) * 12) + "clik";
+    }
+
+	var clikcount = 0;
+	var autoClick = 0;
+
+	function timer() {
+		clikcount = clikcount + autoClick;
+		update()
+	}
+	setIntervar(timer, 1000)
+</script>
+<html> 
+<head><title>Кликер Клик-Клик</title></head>
+<body>
+	
+    <a href=# onclick="add()"><img src="clik.png"></a>
+    <br><br>
+    Ты получил:
+    <input type="text" id="text" disabled style= text-align:center>
+    <script>
+    function add() {
+    	clikcount = clikcount + 1
+    	update()
+   } 
+    </script>
+    Кликов
+    <br><br>
+
+    <button><a href="#" onClick="save()">сохранить</a></button>
+    <button><a href="#" onclick="load()">Загрузка</a></button>
+    <br><br>
+
+    <p>Купить 1 клик в секунду</p>
+    <button><a href="#" onClik="buyAutoClick()"><img src=cliks.png wildth="30px" height="40px"></a></button>
+    <p id="costAutoClick">12 кликов</p>
+    <p id="ammountAutoClick">You Own 0 Auto Clickers</p>	
+
+    <script>
+    function save() {
+        localStorage.setItem("clikcount", clikcount);
+        localStorage.setItem("autoClick", autoClick);
+    }
+    function load(){
+    	clikcount = localStorage.getItem("clikcount");
+    	clikcount = parselInt(clikcount);
+    	autoClick = localStorage.getItem("autoClick");
+    	autoClick = parseInt(autoClick);
+    	update()
+    }
+    function buyAutoClick() {
+    	if (clikcount >= ((autoClick+1) * 12)) {
+            clikcount = clikcount - ((autoClick+1) * 12);
+            autoClick = autoClick + 1;
+            update()
+    	}
+    }
+    </script>	
+</body>
+</html>
